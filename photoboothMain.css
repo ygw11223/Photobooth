@@ -1,0 +1,18 @@
+body
+{
+    margin-top: 2%;
+}
+
+header > img
+{
+    margin-bottom: 1%;
+    margin-left: 2%;
+}
+
+hr
+{
+    height: 2px;
+
+    border: none;
+    background-color: #885541;
+}
