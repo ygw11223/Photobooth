@@ -55,3 +55,10 @@ button
     border: 1px solid #502f1e;
     background-color: #885541;
 }
+
+@media(max-width: 480px)
+{
+    body {
+        display: none;
+    }
+}
