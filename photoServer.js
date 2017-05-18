@@ -1,6 +1,6 @@
 var express = require('express');
 var formidable = require('formidable');  
-
+var portNumber = 2333; // don't forget change the port
 var app = express();
 
 var sqlite = require('sqlite3').verbose();
@@ -38,7 +38,7 @@ app.post('/', function (request, response){
     form.on('fileBegin', function (name, file){
         file.path = __dirname + '/photo/' + file.name;
         console.log("uploading ",file.name, name);
-        db.run('INSERT INTO IMGS (LABELS, FILE) VALUES (?, ?)', ["", file.name]);});
+        db.run('INSERT INTO IMGS (LABELS, FILE) VALUES (?, ?)', ["", file.name], (err) => { if(err) console.log('FILE EXIST');});});
   
     form.on('end', function (){
         console.log('success');
@@ -46,7 +46,7 @@ app.post('/', function (request, response){
 
 });
 
-app.listen(2333); 
+app.listen(portNumber); 
 
 function sendCode(code,response,message) {
     response.status(code);
@@ -59,7 +59,7 @@ function sendJson(data, response) {
     response.send(ans);
 }
 
-function updateTags(img) {
+function updateTags(img) { // update tags of img
     db.all("SELECT LABEL FROM LABELS WHERE FILE = ?", [img] , (err, row) => {
         str = '';
         row.forEach(function(row) {
@@ -119,6 +119,7 @@ function answer(query, response) {
                     else {
                         updateTags(img);
                         sendCode(201,response,'add success');
+                        console.log("add");
                     }
                 });
             }
@@ -130,6 +131,7 @@ function answer(query, response) {
                     else {
                         updateTags(img);
                         sendCode(201,response,'delete success');
+                        console.log("delete");
                     }
                 });
             }
