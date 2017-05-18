@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Photobooth.</title>
+    <link rel="stylesheet" type="text/css" href="reset.css">
+    <link rel="stylesheet" type="text/css" href="photoboothMain.css">
+</head>
+<body>
+    <header>
+        <img src="Asset/photoboothLogo.svg" alt="Photobooth.">
+        <hr>
+    </header>
+    <main>
+        <div id="mobileButtons">
+            <img src="Asset/uploadIcon-01.svg" alt="upload">
+            <img src="Asset/filterIcon-01.svg" alt="filter">
+            <img src="Asset/favoritesIcon.svg" alt="favorits">
+        </div>
+        <div id="images">
+            <div class="image">
+                <img class="uploadImg">
+                <progress value="0" max="100"></progress>
+                <div class="options">
+                    <button class="expand" onclick="expandOptions(0)">
+                        <img src="Asset/optionsTriangle.svg">
+                    </button>
+                    <hr>
+                    <button onclick="changeFavo(0)">add to favorites</button>
+                    <hr>
+                    <button onclick="changeTags(0)">change tags</button>
+                </div>
+                <div class="addLabel">
+                    <input type="text" class="labelInput"/>
+                    <div class="labels"></div>  
+                </div>
+                <button class="add" onclick="addLabel(0)">add</button>
+            </div>
+            <div class="image">
+                <img class="uploadImg">
+                <progress value="0" max="100"></progress>
+                <div class="options">
+                    <button class="expand" onclick="expandOptions(1)">
+                        <img src="Asset/optionsTriangle.svg">
+                    </button>
+                    <hr>
+                    <button onclick="changeFavo(1)">add to favorites</button>
+                    <hr>
+                    <button onclick="changeTags(1)">change tags</button>
+                </div>
+                <div class="addLabel">
+                    <input type="text" class="labelInput"/>
+                    <div class="labels"></div>  
+                </div>
+                <button class="add" onclick="addLabel(1)">add</button>
+            </div>
+            <div class="image">
+                <img class="uploadImg">
+                <progress value="0" max="100"></progress>
+                <div class="options">
+                    <button class="expand" onclick="expandOptions(2)">
+                        <img src="Asset/optionsTriangle.png">
+                    </button>
+                    <hr>
+                    <button onclick="changeFavo(2)">add to favorites</button>
+                    <hr>
+                    <button onclick="changeTags(2)">change tags</button>
+                </div>
+                <div class="addLabel">
+                    <input type="text" class="labelInput"/>
+                    <div class="labels"></div>  
+                </div>
+                <button class="add" onclick="addLabel(2)">add</button>
+            </div>
+            <div class="image">
+                <img class="uploadImg">
+                <progress value="0" max="100"></progress>
+                <div class="options">
+                    <button class="expand" onclick="expandOptions(3)">
+                        <img src="Asset/optionsTriangle.png">
+                    </button>
+                    <hr>
+                    <button onclick="changeFavo(3)">add to favorites</button>
+                    <hr>
+                    <button onclick="changeTags(3)">change tags</button>
+                </div>
+                <div class="addLabel">
+                    <input type="text" class="labelInput"/>
+                    <div class="labels"></div>  
+                </div>
+                <button class="add" onclick="addLabel(3)">add</button>
+            </div>
+            <div class="image">
+                <img class="uploadImg">
+                <progress value="0" max="100"></progress>
+                <div class="options">
+                    <button class="expand" onclick="expandOptions(4)">
+                        <img src="Asset/optionsTriangle.png">
+                    </button>
+                    <hr>
+                    <button onclick="changeFavo(4)">add to favorites</button>
+                    <hr>
+                    <button onclick="changeTags(4)">change tags</button>
+                </div>
+                <div class="addLabel">
+                    <input type="text" class="labelInput"/>
+                    <div class="labels"></div>  
+                </div>
+                <button class="add" onclick="addLabel(4)">add</button>
+            </div>
+            <div class="image">
+                <img class="uploadImg">
+                <progress value="0" max="100"></progress>
+                <div class="options">
+                    <button class="expand" onclick="expandOptions(5)">
+                        <img src="Asset/optionsTriangle.png">
+                    </button>
+                    <hr>
+                    <button onclick="changeFavo(5)">add to favorites</button>
+                    <hr>
+                    <button onclick="changeTags(5)">change tags</button>
+                </div>
+                <div class="addLabel">
+                    <input type="text" class="labelInput"/>
+                    <div class="labels"></div>  
+                </div>
+                <button class="add" onclick="addLabel(5)">add</button>
+            </div>
+            <div class="image">
+                <img class="uploadImg">
+                <progress value="0" max="100"></progress>
+                <div class="options">
+                    <button class="expand" onclick="expandOptions(6)">
+                        <img src="Asset/optionsTriangle.png">
+                    </button>
+                    <hr>
+                    <button onclick="changeFavo(6)">add to favorites</button>
+                    <hr>
+                    <button onclick="changeTags(6)">change tags</button>
+                </div>
+                <div class="addLabel">
+                    <input type="text" class="labelInput"/>
+                    <div class="labels"></div>  
+                </div>
+                <button class="add" onclick="addLabel(6)">add</button>
+            </div>
+            <div class="image">
+                <img class="uploadImg">
+                <progress value="0" max="100"></progress>
+                <div class="options">
+                    <button class="expand" onclick="expandOptions(7)">
+                        <img src="Asset/optionsTriangle.png">
+                    </button>
+                    <hr>
+                    <button onclick="changeFavo(7)">add to favorites</button>
+                    <hr>
+                    <button onclick="changeTags(7)">change tags</button>
+                </div>
+                <div class="addLabel">
+                    <input type="text" class="labelInput"/>
+                    <div class="labels"></div>  
+                </div>
+                <button class="add" onclick="addLabel(7)">add</button>
+            </div>
+            <div class="image">
+                <img class="uploadImg">
+                <progress value="0" max="100"></progress>
+                <div class="options">
+                    <button class="expand" onclick="expandOptions(9)">
+                        <img src="Asset/optionsTriangle.png">
+                    </button>
+                    <hr>
+                    <button onclick="changeFavo(9)">add to favorites</button>
+                    <hr>
+                    <button onclick="changeTags(8)">change tags</button>
+                </div>
+                <div class="addLabel">
+                    <input type="text" class="labelInput"/>
+                    <div class="labels"></div>  
+                </div>
+                <button class="add" onclick="addLabel(8)">add</button>
+            </div>
+            <div class="image">
+                <img class="uploadImg">
+                <progress value="0" max="100"></progress>
+                <div class="options">
+                    <button class="expand" onclick="expandOptions(9)">
+                        <img src="Asset/optionsTriangle.png">
+                    </button>
+                    <hr>
+                    <button onclick="changeFavo(9)">add to favorites</button>
+                    <hr>
+                    <button onclick="changeTags(9)">change tags</button>
+                </div>
+                <div class="addLabel">
+                    <input type="text" class="labelInput"/>
+                    <div class="labels"></div>  
+                </div>
+                <button class="add" onclick="addLabel(9)">add</button>
+            </div>
+        </div>
+        <div id="tool">
+            <div id="upload" onclick="expandUpload()">
+                <img src="Asset/uploadIcon-01.png" alt="upload">
+                <p>upload</p>
+            </div>
+            <div id="expandUpload">
+                <input type="file" name="file" id="fileSelector"/>
+                <label for="fileSelector"><span>choose file...</span></label>
+                <p id="currentFile">no file chosen</p>
+                <button id="uploadButton" onclick="uploadFile()">upload</button>
+            </div>
+            <div id="filter" onclick="expandFilter()">
+                <img src="Asset/filterIcon-01.png" alt="upload">
+                <p>filter</p>
+            </div>
+            <div id="expandFilter">
+                <input id="searchbox" type="text" placeholder="filter">
+                <div id="buttons">
+                    <button>enter</button>
+                    <button>clear filter</button>
+                </div>
+            </div>
+            <div id="favorites" onclick="expandFavorites()">
+                <img src="Asset/favoritesIcon.png" alt="upload">
+                <p>favorites</p>
+            </div>
+            <div id="expandFavorites">
+                <button>clear filter</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="photoboothMain.js"></script>
+</body>
+</html>

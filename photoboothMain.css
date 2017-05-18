@@ -1,0 +1,448 @@
+body
+{
+    font-family: 'Goudy Oldstyle Std', sans-serif;
+    margin-top: 2%;
+    min-height: 100vh;
+}
+
+header > img
+{
+    margin-bottom: 1%;
+    margin-left: 2%;
+}
+
+hr
+{  
+    background-color: #885541;
+    border-color: #885541;
+    margin-bottom: 0;
+}
+
+main
+{
+    align-self: stretch;
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    min-height: 100vh;
+}
+
+#images
+{
+    align-items: flex-start;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 50px;
+    width: 80vw; 
+}
+
+.image
+{
+    display: none;
+    flex-direction: column;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.uploadImg
+{
+    max-width: 300px;
+}
+
+progress
+{
+    width: 100%;
+    height: 30px;
+    margin-top: 20px;
+    border: solid;
+    border-color: #885541;
+}
+
+progress::-webkit-progress-bar 
+{ 
+    background: white;
+}
+
+
+progress::-webkit-progress-value 
+{ 
+    background: #885541;
+}
+
+.options
+{
+    border-style: none;
+    border-width: 1px;
+    border-color: black;
+    display: none;
+    align-self: flex-end;
+    flex-direction: column-reverse;
+    width: 95px;
+    height: 108px;
+    color: white;
+    background-color: transparent;/* #885541;*/
+    position: relative;
+    top: -110px;
+}
+
+.options hr
+{
+    display: none;
+    background-color: black;
+    border: none;
+    height: 2px;
+    margin: 0;
+}
+
+.options button
+{
+    display: none;
+    background-color: transparent;
+    color: white;
+    height: 35px;
+    line-height:35px;
+    font-size: 10pt;
+    text-align: center;
+    vertical-align: middle;
+    padding: 0;
+    margin: 0;
+    border: none;
+    position: relative;
+    right: -1px;
+    bottom: -3px;
+}
+
+.options img
+{
+    height: 35px;
+    width: 35px;
+}
+
+.options .expand
+{
+    display: block;
+    align-self: flex-end; 
+    width: 35px;
+    height: 35px;
+}
+
+.addLabel
+{
+    margin-top: 20px;
+    display: none;
+    flex-direction: column-reverse;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #885541;
+    position: relative;
+    top: -110px;
+}
+
+.labels
+{
+    background-color: white;
+    display: flex;
+    max-width: 398px;
+    width: 100%;
+    min-height: 50px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    justify-content: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.labelInput
+{
+    display: none;
+    border: none;
+    background-color: transparent;
+    width: 100%;
+    min-height: 30px;
+}
+
+.add
+{
+    display: none;
+    border: none;
+    margin-top: 10px;
+    min-height: 30px;
+    width: 20%;
+    color: white;
+    background-color: #885541;
+    position: relative;
+    top: -110px;
+}
+
+.labelDiv
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.labelDiv button
+{
+    height: 30px;
+    width: 30px;
+    padding: 0;
+    margin: 0;
+    border-style: none;
+    background: transparent;
+}
+
+.labelDiv img
+{
+    max-height: 30px;
+    max-width: 30px;
+}
+
+.labelDiv p
+{
+    font-size: 25px;
+    line-height: 30px;
+}
+
+#tool
+{
+    font-size: 140%;
+
+    display: flex;
+    flex-direction: column;
+
+    width: 20vw;
+    min-width: 150px;
+
+    color: #fff;
+    background-color: #885541;
+
+    align-self: stretch;
+}
+
+#tool img
+{
+    width: 35px;
+}
+
+#upload
+{
+    display: flex;
+    flex-direction: row;
+
+    cursor: pointer;
+
+    align-items: center;
+    align-self: stretch;
+}
+
+#filter
+{
+    display: flex;
+    flex-direction: row;
+
+    cursor: pointer;
+
+    align-items: center;
+    align-self: stretch;
+}
+
+*::-webkit-input-placeholder
+{
+    font-size: 20px;
+    font-weight: bold;
+
+    color: #885541;
+}
+
+#searchbox
+{
+    font-family: 'Goudy Old Style', sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+
+    width: 80%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+
+    color: #885541;
+    border: 2px solid #885541;
+    background-color: #fff;
+}
+
+#favorites
+{
+    display: flex;
+    flex-direction: row;
+
+    cursor: pointer;
+
+    align-items: center;
+    align-self: stretch;
+}
+
+#expandUpload
+{
+    display: none;
+    flex-direction: column;
+
+    height: 20%;
+    max-height: 150px;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    padding-left: 10%;
+
+    background-color: #c6ab9c;
+
+    align-items: flex-start;
+    justify-content: space-around;
+}
+
+#currentFile
+{
+    color: #885541;
+    font-size: large;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 90%;
+}
+
+#uploadButton
+{
+    font-family: 'Goudy Old Style', sans-serif;
+    font-size: 90%;
+
+    cursor: pointer;
+
+    color: #fff;
+    border: 2px solid #502f1e;
+    background-color: #885541;
+}
+
+label
+{
+    font-size: 90%;
+
+    padding: 5px;
+
+    cursor: pointer;
+
+    color: #fff;
+    border: 2px solid #502f1e;
+    background-color: #885541;
+}
+
+#fileSelector
+{
+    position: absolute;
+    z-index: -1;
+
+    overflow: hidden;
+
+    width: .1px;
+    height: .1px;
+
+    opacity: 0;
+}
+
+#expandFilter
+{
+    display: flex;
+    flex-direction: column;
+
+    height: 20%;
+    max-height: 120px;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    padding-left: 10px;
+
+    background-color: #c6ab9c;
+
+    align-items: center;
+    justify-content: space-around;
+}
+
+#buttons
+{
+    display: flex;
+
+    align-items: center;
+    justify-content: space-around;
+    align-self: stretch;
+}
+
+#buttons > button
+{
+    font-size: 80%;
+
+    padding-right: 4%;
+    padding-left: 4%;
+}
+#expandFavorites
+{
+    display: flex;
+    flex-direction: column;
+
+    height: 10%;
+    max-height: 80px;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    padding-left: 10px;
+
+    background-color: #c6ab9c;
+
+    align-items: center;
+    justify-content: space-around;
+}
+
+#mobileButtons
+{
+    display: none;
+}
+
+@media(max-width: 480px)
+{
+    header
+    {
+        display: flex;
+
+        justify-content: center;
+    }
+
+    header > img
+    {
+        width: 100%;
+    }
+    hr
+    {
+        display: none;
+    }
+
+    #tool
+    {
+        display: none;
+    }
+    main
+    {
+        flex-direction: column;
+    }
+    #mobileButtons
+    {
+        display: flex;
+        flex-direction: row;
+
+        align-items: flex-start;
+        justify-content: center;
+        align-self: stretch;
+    }
+    #mobileButtons > img
+    {
+        width: 15%;
+        max-width: 55px;
+        margin: 3px;
+    }
+}
