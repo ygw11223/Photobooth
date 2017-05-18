@@ -1,6 +1,8 @@
 body
 {
+    font-family: 'Goudy Oldstyle Std', sans-serif;
     margin-top: 2%;
+    min-height: 100vh;
 }
 
 header > img
@@ -10,39 +12,198 @@ header > img
 }
 
 hr
-{
-    margin-bottom: 0;
-
-    border-color: #885541;
+{  
     background-color: #885541;
+    border-color: #885541;
+    margin-bottom: 0;
 }
 
 main
 {
+    align-self: stretch;
     display: flex;
     flex-direction: row;
-
-    min-height: 100vh;
-
-    align-self: stretch;
     flex-grow: 1;
+    min-height: 100vh;
 }
 
 #images
 {
+    align-items: flex-start;
     display: flex;
-
-    width: 80vw;
-    margin-top: 50px;
-
     flex-wrap: wrap;
     justify-content: space-around;
-    align-items: flex-start;
+    margin-top: 50px;
+    width: 80vw; 
 }
 
-#images img
+.image
 {
-    margin-bottom: 5%;
+    display: none;
+    flex-direction: column;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.uploadImg
+{
+    max-width: 300px;
+}
+
+progress
+{
+    width: 100%;
+    height: 30px;
+    margin-top: 20px;
+    border: solid;
+    border-color: #885541;
+}
+
+progress::-webkit-progress-bar 
+{ 
+    background: white;
+}
+
+
+progress::-webkit-progress-value 
+{ 
+    background: #885541;
+}
+
+.options
+{
+    border-style: none;
+    border-width: 1px;
+    border-color: black;
+    display: none;
+    align-self: flex-end;
+    flex-direction: column-reverse;
+    width: 95px;
+    height: 108px;
+    color: white;
+    background-color: transparent;/* #885541;*/
+    position: relative;
+    top: -110px;
+}
+
+.options hr
+{
+    display: none;
+    background-color: black;
+    border: none;
+    height: 2px;
+    margin: 0;
+}
+
+.options button
+{
+    display: none;
+    background-color: transparent;
+    color: white;
+    height: 35px;
+    line-height:35px;
+    font-size: 10pt;
+    text-align: center;
+    vertical-align: middle;
+    padding: 0;
+    margin: 0;
+    border: none;
+    position: relative;
+    right: -1px;
+    bottom: -3px;
+}
+
+.options img
+{
+    height: 35px;
+    width: 35px;
+}
+
+.options .expand
+{
+    display: block;
+    align-self: flex-end; 
+    width: 35px;
+    height: 35px;
+}
+
+.addLabel
+{
+    margin-top: 20px;
+    display: none;
+    flex-direction: column-reverse;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #885541;
+    position: relative;
+    top: -110px;
+}
+
+.labels
+{
+    background-color: white;
+    display: flex;
+    max-width: 398px;
+    width: 100%;
+    min-height: 50px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    justify-content: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.labelInput
+{
+    display: none;
+    border: none;
+    background-color: transparent;
+    width: 100%;
+    min-height: 30px;
+}
+
+.add
+{
+    display: none;
+    border: none;
+    margin-top: 10px;
+    min-height: 30px;
+    width: 20%;
+    color: white;
+    background-color: #885541;
+    position: relative;
+    top: -110px;
+}
+
+.labelDiv
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.labelDiv button
+{
+    height: 30px;
+    width: 30px;
+    padding: 0;
+    margin: 0;
+    border-style: none;
+    background: transparent;
+}
+
+.labelDiv img
+{
+    max-height: 30px;
+    max-width: 30px;
+}
+
+.labelDiv p
+{
+    font-size: 25px;
+    line-height: 30px;
 }
 
 #tool
@@ -140,7 +301,17 @@ main
     justify-content: space-around;
 }
 
-button
+#currentFile
+{
+    color: #885541;
+    font-size: large;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 90%;
+}
+
+#uploadButton
 {
     font-family: 'Goudy Old Style', sans-serif;
     font-size: 90%;
@@ -165,7 +336,7 @@ label
     background-color: #885541;
 }
 
-#file
+#fileSelector
 {
     position: absolute;
     z-index: -1;
