@@ -11,12 +11,12 @@ We use this project to get familiar with github collaboration. Here's several ru
 queries 
  138.68.25.50:????/change?img=picnicDay.jpg&label=ice%20cream&op=delete  #delete label of img
  138.68.25.50:????/change?img=picnicDay.jpg&label=ice%20cream&op=add     #add label of img
- 138.68.25.50:????/change?img=*&label=*&op=ask               #get all imgs and labels
- 138.68.25.50:????/change?img=picnicDay.jpg&label=*&op=ask       #get all labels of the img
- 138.68.25.50:????/change?img=*&label=ice%20cream&op=ask         #get all imgs which have the label
- 138.68.25.50:????/change?img=*&label=*&op=fav               #get all imgs and labels which are marked as favorite
- 138.68.25.50:????/change?img=picnicDay.jpg&label=@&op=add       #add img to fav
- 138.68.25.50:????/change?img=picnicDay.jpg&label=@&op=delete        #remove img from fav
+ 138.68.25.50:????/change?img=*&label=*&op=ask                           #get all imgs and labels
+ 138.68.25.50:????/change?img=picnicDay.jpg&label=*&op=ask               #get all labels of the img
+ 138.68.25.50:????/change?img=*&label=ice%20cream&op=ask                 #get all imgs which have the label
+ 138.68.25.50:????/change?img=*&label=*&op=fav                           #get all imgs and labels which are marked as favorite
+ 138.68.25.50:????/change?img=picnicDay.jpg&label=@&op=add               #add img to fav
+ 138.68.25.50:????/change?img=picnicDay.jpg&label=@&op=delete            #remove img from fav
 
 To be updated...
 
