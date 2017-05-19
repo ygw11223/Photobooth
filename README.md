@@ -8,15 +8,15 @@ We use this project to get familiar with github collaboration. Here's several ru
 
 3. Each commit and merge operation for code files should have a short explanation message ending with the corresponding issue number. For example, "Commit message.(#1)".
 
-queries 
- 138.68.25.50:????/change?img=picnicDay.jpg&label=ice%20cream&op=delete  #delete label of img
- 138.68.25.50:????/change?img=picnicDay.jpg&label=ice%20cream&op=add     #add label of img
- 138.68.25.50:????/change?img=*&label=*&op=ask                           #get all imgs and labels
- 138.68.25.50:????/change?img=picnicDay.jpg&label=*&op=ask               #get all labels of the img
- 138.68.25.50:????/change?img=*&label=ice%20cream&op=ask                 #get all imgs which have the label
- 138.68.25.50:????/change?img=*&label=*&op=fav                           #get all imgs and labels which are marked as favorite
- 138.68.25.50:????/change?img=picnicDay.jpg&label=@&op=add               #add img to fav
- 138.68.25.50:????/change?img=picnicDay.jpg&label=@&op=delete            #remove img from fav
+Queries List 
+ 1. 138.68.25.50:????/change?img=picnicDay.jpg&label=ice%20cream&op=delete  #delete label of img
+ 2. 138.68.25.50:????/change?img=picnicDay.jpg&label=ice%20cream&op=add     #add label of img
+ 3. 138.68.25.50:????/change?img=*&label=*&op=ask                           #get all imgs and labels
+ 4. 138.68.25.50:????/change?img=picnicDay.jpg&label=*&op=ask               #get all labels of the img
+ 5. 138.68.25.50:????/change?img=*&label=ice%20cream&op=ask                 #get all imgs which have the label
+ 6. 138.68.25.50:????/change?img=*&label=*&op=fav                           #get all imgs and labels which are marked as favorite
+ 7. 138.68.25.50:????/change?img=picnicDay.jpg&label=@&op=add               #add img to fav
+ 8. 138.68.25.50:????/change?img=picnicDay.jpg&label=@&op=delete            #remove img from fav
 
 To be updated...
 
