@@ -56,7 +56,7 @@ function sendCode(code,response,message) {
 function sendJson(data, response) {
     response.status(200);
     response.type("text/json");
-    response.send(ans);
+    response.send(data);
 }
 
 function updateTags(img) { // update tags of img
@@ -81,9 +81,8 @@ function answer(query, response) {
         var op = querys[2].split('=')[1];
         console.log(img+" "+label+" "+op);
         if(img === "*" && label === "*") { 
-            ans =[]
+            var ans =[];
             if(op === "ask") {  // return all all imgs with label
-                console.log("???");
                 data = db.all("SELECT LABELS, FILE FROM IMGS", (err, row) => {
                     if(err) {
                         console.log("select error");
@@ -102,7 +101,21 @@ function answer(query, response) {
         }
         else if(img === "*") {
             if(op === "ask") {
-
+                db.all('select distinct labels.file, imgs.labels \
+                        from labels join imgs on labels.label = ? \
+                        and imgs.file = labels.file;', [label], (err, row) => {
+                            
+                            if(err) {
+                                console.log("ERROR: " + err);
+                            }
+                            else{
+                                var ans = [];
+                                row.forEach(function (row) {
+                                    ans.push(row);
+                                });
+                                sendJson(ans, response);
+                            }
+                        });
             }
         }
         else if (label === "*" ) {
