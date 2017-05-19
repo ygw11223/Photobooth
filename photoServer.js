@@ -83,7 +83,7 @@ function answer(query, response) {
         if(img === "*" && label === "*") { 
             var ans =[];
             if(op === "ask") {  // return all all imgs with label
-                data = db.all("SELECT LABELS, FILE FROM IMGS", (err, row) => {
+                data = db.all("SELECT LABELS, FILE, FAVORITE FROM IMGS", (err, row) => {
                     if(err) {
                         console.log("select error");
                     }
