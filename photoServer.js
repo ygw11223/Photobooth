@@ -88,10 +88,7 @@ function answer(query, response) {
                         console.log("select error");
                     }
                     else{
-                        row.forEach(function (row) {  
-                            ans.push({LABELS: row.LABELS, FILE: row.FILE});  
-                        });
-                        sendJson(ans, response);
+                        sendJson(row, response);
                     }
                 });
             }
@@ -104,16 +101,12 @@ function answer(query, response) {
                 db.all('select distinct labels.file, imgs.labels \
                         from labels join imgs on labels.label = ? \
                         and imgs.file = labels.file;', [label], (err, row) => {
-                            
                             if(err) {
                                 console.log("ERROR: " + err);
                             }
                             else{
-                                var ans = [];
-                                row.forEach(function (row) {
-                                    ans.push(row);
-                                });
-                                sendJson(ans, response);
+                                console.log(row);
+                                sendJson(row, response);
                             }
                         });
             }
@@ -154,6 +147,5 @@ function answer(query, response) {
     else {
         sendCode(400,response,'query not recognized');
     }
-
 }
 
