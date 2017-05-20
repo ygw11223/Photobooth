@@ -212,7 +212,6 @@ function uploadFile() {
     var oReq = new XMLHttpRequest();
     var progress = div.getElementsByTagName("progress")[0];
     var selectedFile = document.getElementById("fileSelector").files[0];
-    var url = "http://138.68.25.50:10155";
 
     function updateProgress (oEvent) {
         if (oEvent.lengthComputable) {
@@ -242,7 +241,7 @@ function uploadFile() {
     images.appendChild(div);
     oReq.upload.addEventListener("progress", updateProgress);
     oReq.upload.addEventListener("load", progressFinished);
-    oReq.open("POST", url, true);
+    oReq.open("POST", server, true);
     formData.append("userfile", selectedFile);
     fileReader.readAsDataURL(selectedFile);
 }
