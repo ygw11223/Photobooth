@@ -283,24 +283,4 @@ function addPhoto(imgURL, labels, favo)
     images.appendChild(imageDiv);
 } 
 
-/*
-<div class="image">
-                <img class="uploadImg">
-                <progress value="0" max="100"></progress>
-                <div class="options">
-                    <button class="expand" onclick="expandOptions(0)">
-                        <img src="Asset/optionsTriangle.svg">
-                    </button>
-                    <hr>
-                    <button onclick="changeFavo(0)">add to favorites</button>
-                    <hr>
-                    <button onclick="changeTags(0)">change tags</button>
-                </div>
-                <div class="addLabel">
-                    <input type="text" class="labelInput"/>
-                    <div class="labels"></div>  
-                </div>
-                <button class="add" onclick="addLabel(0)">add</button>
-            </div>*/
-
 init();
