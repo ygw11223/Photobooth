@@ -65,140 +65,140 @@ function sendQuery(imgName, labName, option)
 }
 
 function constructOpt(favo, addGroup, uploadImg) {
-	var options = document.createElement("div");
-	var expand = document.createElement("button");
-	var triangle = document.createElement("img");
-	var hr1 = document.createElement("hr");
-	var hr2 = document.createElement("hr");
-	var favorite = document.createElement("button");
-	var changeTag = document.createElement("button");
-	var addLabel = addGroup[0];
-	var add = addGroup[1];
-	var labels = addGroup[2];
+    var options = document.createElement("div");
+    var expand = document.createElement("button");
+    var triangle = document.createElement("img");
+    var hr1 = document.createElement("hr");
+    var hr2 = document.createElement("hr");
+    var favorite = document.createElement("button");
+    var changeTag = document.createElement("button");
+    var addLabel = addGroup[0];
+    var add = addGroup[1];
+    var labels = addGroup[2];
 
 
-	expand.onclick = function () {
-    	if(options.style.backgroundColor == "rgb(136, 85, 65)") {
-        	options.style.backgroundColor = "transparent";
-        	options.style.borderStyle = "none";
-        	favorite.style.display = changeTag.style.display ="none";
-        	hr1.style.display = hr2.style.display = "none";
-        	options.style.top = "-108px";   
-    	} else {
-        	options.style.backgroundColor = "#885541";
-        	options.style.borderStyle = "solid";  	
-        	favorite.style.display = changeTag.style.display ="block";
-        	hr1.style.display = hr2.style.display = "block";
-        	options.style.top = "-110px";
-    	}
-	}
+    expand.onclick = function () {
+        if(options.style.backgroundColor == "rgb(136, 85, 65)") {
+            options.style.backgroundColor = "transparent";
+            options.style.borderStyle = "none";
+            favorite.style.display = changeTag.style.display ="none";
+            hr1.style.display = hr2.style.display = "none";
+            options.style.top = "-108px";   
+        } else {
+            options.style.backgroundColor = "#885541";
+            options.style.borderStyle = "solid";    
+            favorite.style.display = changeTag.style.display ="block";
+            hr1.style.display = hr2.style.display = "block";
+            options.style.top = "-110px";
+        }
+    }
 
-	favorite.onclick = function () {
-		if (favorite.innerHTML == "add to favorites") {
-			sendQuery(uploadImg.name, "@", "add");
-			favorite.innerHTML = "unfavorite";
-		} else {
-			sendQuery(uploadImg.name, "@", "delete");
-			favorite.innerHTML = "add to favorites";
-		}
-	}
+    favorite.onclick = function () {
+        if (favorite.innerHTML == "add to favorites") {
+            sendQuery(uploadImg.name, "@", "add");
+            favorite.innerHTML = "unfavorite";
+        } else {
+            sendQuery(uploadImg.name, "@", "delete");
+            favorite.innerHTML = "add to favorites";
+        }
+    }
 
-	changeTag.onclick = function () {
-    	var labDiv = labels.getElementsByTagName("div");
+    changeTag.onclick = function () {
+        var labDiv = labels.getElementsByTagName("div");
 
-    	addLabel.getElementsByTagName("input")[0].style.display = "block";
-    	labels.style.backgroundColor = "#c6ab9c";
-    	add.style.display = "block";
-    	for (var i = 0; i < labDiv.length; i++) {
-    	    labDiv[i].getElementsByTagName("button")[0].style.display = "block";
-    	}
-	}
+        addLabel.getElementsByTagName("input")[0].style.display = "block";
+        labels.style.backgroundColor = "#c6ab9c";
+        add.style.display = "block";
+        for (var i = 0; i < labDiv.length; i++) {
+            labDiv[i].getElementsByTagName("button")[0].style.display = "block";
+        }
+    }
 
-	options.className = "options";
-	expand.className = "expand";
-	triangle.src = "Asset/optionsTriangle.svg";
-	expand.appendChild(triangle);
-	if (favo) {
-		favorite.innerHTML = "unfavorite";
-	} else {
-		favorite.innerHTML = "add to favorites";
-	}
-	changeTag.innerHTML = "change tags";
-	options.appendChild(expand);
-	options.appendChild(hr1);
-	options.appendChild(favorite);
-	options.appendChild(hr2);
-	options.appendChild(changeTag);
-	return options;
+    options.className = "options";
+    expand.className = "expand";
+    triangle.src = "Asset/optionsTriangle.svg";
+    expand.appendChild(triangle);
+    if (favo) {
+        favorite.innerHTML = "unfavorite";
+    } else {
+        favorite.innerHTML = "add to favorites";
+    }
+    changeTag.innerHTML = "change tags";
+    options.appendChild(expand);
+    options.appendChild(hr1);
+    options.appendChild(favorite);
+    options.appendChild(hr2);
+    options.appendChild(changeTag);
+    return options;
 }
 
 function constructAdd(uploadImg) {
-	var addLabel = document.createElement("div");
-	var labelInput = document.createElement("input");
-	var labels = document.createElement("div");
-	var add = document.createElement("button");
+    var addLabel = document.createElement("div");
+    var labelInput = document.createElement("input");
+    var labels = document.createElement("div");
+    var add = document.createElement("button");
 
-	add.onclick = function () {
-    	var input = labelInput.value;
-    	var imgName = uploadImg.name;
-    	var labDiv = labels.getElementsByTagName("div");
-    	var label = document.createElement("div");
-    	var button = document.createElement("button");
-    	var pic = document.createElement("img");
-    	var p = document.createElement("p");
+    add.onclick = function () {
+        var input = labelInput.value;
+        var imgName = uploadImg.name;
+        var labDiv = labels.getElementsByTagName("div");
+        var label = document.createElement("div");
+        var button = document.createElement("button");
+        var pic = document.createElement("img");
+        var p = document.createElement("p");
 
-    	if (input != "") {
-    	    p.innerHTML = input;
-    	    pic.src = "Asset/removeTagButton.svg";
-    	    button.appendChild(pic);
-    	    button.onclick = function() {
-    	        sendQuery(imgName, input, "delete")
-    	        this.parentElement.remove();        
-    	    }
-    	    label.appendChild(button);
-    	    label.appendChild(p);
-    	    label.className = "labelDiv";
-    	    labels.appendChild(label);
-    	    sendQuery(imgName, input, "add");
-    	    labelInput.value = "";
-    	}
-    	labelInput.style.display = add.style.display = "none";
-    	labels.style.backgroundColor = "white";
-    	for (var i = 0; i < labDiv.length; i++) {
-        	labDiv[i].getElementsByTagName("button")[0].style.display = "none";
-    	}
-	}
+        if (input != "") {
+            p.innerHTML = input;
+            pic.src = "Asset/removeTagButton.svg";
+            button.appendChild(pic);
+            button.onclick = function() {
+                sendQuery(imgName, input, "delete")
+                this.parentElement.remove();        
+            }
+            label.appendChild(button);
+            label.appendChild(p);
+            label.className = "labelDiv";
+            labels.appendChild(label);
+            sendQuery(imgName, input, "add");
+            labelInput.value = "";
+        }
+        labelInput.style.display = add.style.display = "none";
+        labels.style.backgroundColor = "white";
+        for (var i = 0; i < labDiv.length; i++) {
+            labDiv[i].getElementsByTagName("button")[0].style.display = "none";
+        }
+    }
 
-	addLabel.className = "addLabel";
-	labelInput.type = "text";
-	labelInput.className = "labelInput";
-	labels.className = "labels";
-	addLabel.appendChild(labelInput);
-	addLabel.appendChild(labels);
-	add.className = "add";
-	add.innerHTML = "add";
+    addLabel.className = "addLabel";
+    labelInput.type = "text";
+    labelInput.className = "labelInput";
+    labels.className = "labels";
+    addLabel.appendChild(labelInput);
+    addLabel.appendChild(labels);
+    add.className = "add";
+    add.innerHTML = "add";
 
-	return [addLabel, add, labels];
+    return [addLabel, add, labels];
 }
 
 function constructImg(favo) {
-	var image = document.createElement("div");
-	var uploadImg = document.createElement("img");
-	var progressBar = document.createElement("progress");
-	var addGroup = constructAdd(uploadImg);
-	var options = constructOpt(favo, addGroup, uploadImg);
+    var image = document.createElement("div");
+    var uploadImg = document.createElement("img");
+    var progressBar = document.createElement("progress");
+    var addGroup = constructAdd(uploadImg);
+    var options = constructOpt(favo, addGroup, uploadImg);
 
-	image.className = "image"
-	uploadImg.className = "uploadImg";
-	progressBar.value = 0;
-	progressBar.max = 100;
-	image.appendChild(uploadImg);
-	image.appendChild(progressBar);
-	image.appendChild(options);
-	image.appendChild(addGroup[0]);
-	image.appendChild(addGroup[1]);
+    image.className = "image"
+    uploadImg.className = "uploadImg";
+    progressBar.value = 0;
+    progressBar.max = 100;
+    image.appendChild(uploadImg);
+    image.appendChild(progressBar);
+    image.appendChild(options);
+    image.appendChild(addGroup[0]);
+    image.appendChild(addGroup[1]);
 
-	return image;
+    return image;
 }
 
 function uploadFile() {
@@ -248,7 +248,7 @@ function uploadFile() {
 
 function addPhoto(imgURL, labels, favo)
 {
-	var images = document.getElementById("images");
+    var images = document.getElementById("images");
     var imageDiv = constructImg(favo);
     var image = imageDiv.getElementsByTagName("img")[0];
     var words = labels.split(",");
@@ -259,22 +259,22 @@ function addPhoto(imgURL, labels, favo)
     image.name = imgURL.split("/")[1];
     if (words[0]=="") length = 0;
     for (var i = 0; i < length; i++) {
-    	var label = document.createElement("div");
-    	var button = document.createElement("button");
-   		var pic = document.createElement("img");
-   		var p = document.createElement("p");
+        var label = document.createElement("div");
+        var button = document.createElement("button");
+        var pic = document.createElement("img");
+        var p = document.createElement("p");
 
-   		p.innerHTML = words[i];
-    	pic.src = "Asset/removeTagButton.svg";
-    	button.appendChild(pic);
-    	button.style.display = "none";
-    	button.onclick = function() {
-    	    this.parentElement.remove();        
-    	}
-    	label.appendChild(button);
-    	label.appendChild(p);
-    	label.className = "labelDiv";
-    	labelsDiv.appendChild(label);
+        p.innerHTML = words[i];
+        pic.src = "Asset/removeTagButton.svg";
+        button.appendChild(pic);
+        button.style.display = "none";
+        button.onclick = function() {
+            this.parentElement.remove();        
+        }
+        label.appendChild(button);
+        label.appendChild(p);
+        label.className = "labelDiv";
+        labelsDiv.appendChild(label);
     }
     imageDiv.getElementsByTagName("progress")[0].style.display = "none";
     imageDiv.getElementsByClassName("options")[0].style.display = "flex";
