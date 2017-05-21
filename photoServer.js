@@ -23,7 +23,7 @@ app.use(express.static('photo')); // the root dir of webpages is photo
 app.get('/change', function (request, response){ 
     query = request.url.split("?")[1];
     console.log(query);
-    if (query) {
+    if (query ) {
        answer(query, response);
     } else {
        sendCode(400,response,'query not recognized');
@@ -36,7 +36,7 @@ app.post('/', function (request, response){
     form.parse(request); 
   
     form.on('fileBegin', function (name, file){
-        file.path = __dirname + '/photo/' + file.name;
+        file.path = __dirname + '/public/' + file.name;
         console.log("uploading ",file.name, name);
         db.run('INSERT INTO IMGS (LABELS, FILE) VALUES (?, ?)', ["", file.name], (err) => { if(err) console.log('FILE EXIST');});});
   
@@ -114,6 +114,28 @@ function answer(query, response) {
         else if (label === "*" ) {
             if(op === "ask") {
 
+            }
+        }
+        else if (label === "@") {
+            if(op == "add") {
+                db.run('update imgs set FAVORITE = 1 where file = ?', [img], (err) => {
+                    if(err) {
+                        console.log("ERROR: " + err);
+                    }
+                    else {
+                        sendCode(201, response, 'update success');
+                    }
+                });
+            }
+            else if(op === "delete") {
+                db.run('update imgs set FAVORITE = 0 where file = ?', [img], (err) => {
+                    if(err) {
+                        console.log("ERROR: " + err);
+                    }
+                    else {
+                        sendCode(201, response, 'update success');
+                    }
+                });
             }
         }
         else {
