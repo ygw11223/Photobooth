@@ -1,6 +1,6 @@
 //remember to reset your server url
 var imgIndex = 0;
-var server = "http://138.68.25.50:10008"
+var server = "http://138.68.25.50:10155"
 
 function wait(ms) {
     var d = new Date();
@@ -27,6 +27,7 @@ function loadAllImages() {
 
     function reqListener() {
         var data = JSON.parse(this.responseText);
+        console.log(data);
         for (var i = 0; i < data.length; i++) {
             var url = "public/" + data[i].FILE;
             var labels = data[i].LABELS;
@@ -137,6 +138,7 @@ function constructOpt(favo, addGroup, uploadImg) {
     expand.className = "expand";
     triangle.src = "Asset/optionsTriangle.svg";
     expand.appendChild(triangle);
+    console.log(favo);
     if (favo) {
         favorite.innerHTML = "unfavorite";
     } else {
@@ -160,6 +162,16 @@ function constructAdd(uploadImg) {
     add.onclick = function() {
         var input = labelInput.value;
         var imgName = uploadImg.name;
+        var labelPs = labels.getElementsByTagName("p");
+
+        for (var i = 0; i < labelPs.length; i++) {
+            console.log(labelPs[i].innerHTML);
+            if (labelPs[i].innerHTML == input) {
+                alert("Can't add existing label for this photo!");
+                return;
+            }
+        }
+
         var labDiv = labels.getElementsByTagName("div");
         var label = document.createElement("div");
         var button = document.createElement("button");
@@ -171,6 +183,8 @@ function constructAdd(uploadImg) {
             pic.src = "Asset/removeTagButton.svg";
             button.appendChild(pic);
             button.onclick = function() {
+                var input = this.parentElement.getElementsByTagName("p")[0].innerHTML;
+                console.log(input);
                 sendQuery(imgName, input, "delete")
                 this.parentElement.remove();
             }
@@ -221,16 +235,30 @@ function constructImg(favo) {
 }
 
 function uploadFile() {
+    var selectedFile = document.getElementById("fileSelector").files[0];
+    var images = document.getElementById("images");
+    var uploadImgs = images.getElementsByClassName("uploadImg");
+
+    if (!selectedFile) {
+        alert("No file chosen!");
+        return;
+    }
+    for (var i = 0; i < uploadImgs.length; i++) {
+        if (uploadImgs[i].name == selectedFile.name) {
+            alert("Can't add already existing photo!");
+            return;
+        }
+    }
+
     var formData = new FormData();
     var fileReader = new FileReader();
-    var images = document.getElementById("images");
     var div = constructImg(0);
     var image = div.getElementsByTagName("img")[0];
     var options = div.getElementsByClassName("options")[0];
     var labels = div.getElementsByClassName("addLabel")[0];
     var oReq = new XMLHttpRequest();
     var progress = div.getElementsByTagName("progress")[0];
-    var selectedFile = document.getElementById("fileSelector").files[0];
+    
 
     function updateProgress(oEvent) {
         if (oEvent.lengthComputable) {
@@ -267,6 +295,7 @@ function uploadFile() {
 }
 
 function addPhoto(imgURL, labels, favo) {
+    console.log(favo);
     var images = document.getElementById("images");
     var imageDiv = constructImg(favo);
     var image = imageDiv.getElementsByTagName("img")[0];
@@ -288,6 +317,8 @@ function addPhoto(imgURL, labels, favo) {
         button.appendChild(pic);
         button.style.display = "none";
         button.onclick = function() {
+            var input = this.parentElement.getElementsByTagName("p")[0].innerHTML;
+            sendQuery(image.name, input, "delete")
             this.parentElement.remove();
         }
         label.appendChild(button);
