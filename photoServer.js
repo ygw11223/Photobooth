@@ -37,6 +37,7 @@ app.post('/', function (request, response){
   
     form.on('fileBegin', function (name, file){
         file.path = __dirname + '/photo/public/' + file.name;
+        console.log(__dirname);
         console.log("uploading ",file.name, name);
         db.run('INSERT INTO IMGS (LABELS, FILE) VALUES (?, ?)', ["", file.name], (err) => { if(err) console.log('FILE EXIST');});});
   
@@ -88,6 +89,9 @@ function answer(query, response) {
                         console.log("select error");
                     }
                     else{
+                        row.forEach((r) => { 
+                            r.FAVORITE  = r.FAVORITE.toString(); 
+                        });
                         sendJson(row, response);
                     }
                 });
@@ -106,6 +110,9 @@ function answer(query, response) {
                             }
                             else{
                                 console.log(row);
+                                row.forEach((r) => {
+                                    r.FAVORITE  = r.FAVORITE.toString(); 
+                                });
                                 sendJson(row, response);
                             }
                         });
