@@ -27,7 +27,6 @@ function loadAllImages() {
 
     function reqListener() {
         var data = JSON.parse(this.responseText);
-        console.log(data);
         for (var i = 0; i < data.length; i++) {
             var url = "public/" + data[i].FILE;
             var labels = data[i].LABELS;
@@ -138,7 +137,6 @@ function constructOpt(favo, addGroup, uploadImg) {
     expand.className = "expand";
     triangle.src = "Asset/optionsTriangle.svg";
     expand.appendChild(triangle);
-    console.log(favo);
     if (favo) {
         favorite.innerHTML = "unfavorite";
     } else {
@@ -165,7 +163,6 @@ function constructAdd(uploadImg) {
         var labelPs = labels.getElementsByTagName("p");
 
         for (var i = 0; i < labelPs.length; i++) {
-            console.log(labelPs[i].innerHTML);
             if (labelPs[i].innerHTML == input) {
                 alert("Can't add existing label for this photo!");
                 return;
@@ -184,7 +181,6 @@ function constructAdd(uploadImg) {
             button.appendChild(pic);
             button.onclick = function() {
                 var input = this.parentElement.getElementsByTagName("p")[0].innerHTML;
-                console.log(input);
                 sendQuery(imgName, input, "delete")
                 this.parentElement.remove();
             }
@@ -295,7 +291,6 @@ function uploadFile() {
 }
 
 function addPhoto(imgURL, labels, favo) {
-    console.log(favo);
     var images = document.getElementById("images");
     var imageDiv = constructImg(favo);
     var image = imageDiv.getElementsByTagName("img")[0];
