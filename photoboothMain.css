@@ -39,7 +39,7 @@ main
 
 .image
 {
-    display: none;
+    display: flex;
     flex-direction: column;
     padding-left: 20px;
     padding-right: 20px;
@@ -83,7 +83,7 @@ progress::-webkit-progress-value
     color: white;
     background-color: transparent;/* #885541;*/
     position: relative;
-    top: -110px;
+    top: -108px;
 }
 
 .options hr
@@ -110,7 +110,7 @@ progress::-webkit-progress-value
     border: none;
     position: relative;
     right: -1px;
-    bottom: -3px;
+    bottom: -1px;
 }
 
 .options img
