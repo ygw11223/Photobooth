@@ -14,8 +14,13 @@ function init() {
     document.getElementById("expandUpload").style.display = "none";
     document.getElementById("expandFavorites").style.display = "none";
     document.getElementById("expandFilter").style.display = "none";
+    document.getElementById("expandMobileUpload").style.display = "none";
+    document.getElementById("expandMobileFavorites").style.display = "none";
+    document.getElementById("expandMobileFilter").style.display = "none";
+    document.getElementById("mobileExpand").style.display = "none";
     document.getElementById("fileSelector").onchange = function(e) {
         document.getElementById("currentFile").innerHTML = this.files[0].name;
+        document.getElementById("currentMobileFile").innerHTML = this.files[0].name;
     };
 
     loadAllImages();
@@ -65,6 +70,40 @@ function expandFavorites() {
         expand.style.display = "flex";
     else {
         expand.style.display = "none";
+    }
+}
+if (matchMedia) {
+    var mq = window.matchMedia("(min-width: 480px)");
+    mq.addListener(WidthChange);
+    WidthChange(mq);
+}
+
+// media query change
+function WidthChange(mq) {
+    if (mq.matches) {
+        // window width is at least 480px
+        document.getElementById("mobileExpand").style.display = "none";
+        var mobile = document.getElementsByClassName("mobile");
+        for (var i = 0; i < 3; i++) {
+            mobile[i].style.display = "none";
+        }
+    }
+}
+
+function expandMobile(index) {
+    var mobile = document.getElementsByClassName("mobile");
+    for (var i = 0; i < 3; i++) {
+        if (i == index) {
+            if (mobile[i].style.display == "none") {
+                mobile[i].style.display = "flex";
+                document.getElementById("mobileExpand").style.display = "flex";
+            } else {
+                mobile[i].style.display = "none";
+                document.getElementById("mobileExpand").style.display = "none";
+                break;
+            }
+        } else
+            mobile[i].style.display = "none";
     }
 }
 
@@ -279,6 +318,8 @@ function uploadFile() {
     }
 
     images.appendChild(div);
+    document.getElementById("currentFile").innerHTML = "no file chosen";
+    document.getElementById("currentMobileFile").innerHTML = "no file chosen";
     oReq.upload.addEventListener("progress", updateProgress);
     oReq.upload.addEventListener("load", progressFinished);
     oReq.open("POST", server, true);

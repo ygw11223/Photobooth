@@ -12,10 +12,28 @@
         <hr>
     </header>
     <main>
-        <div id="mobileButtons">
-            <img src="Asset/uploadIcon-01.svg" alt="upload">
-            <img src="Asset/filterIcon-01.svg" alt="filter">
-            <img src="Asset/favoritesIcon.svg" alt="favorits">
+        <div id="mobileExpand">
+            <div id="expandMobileUpload" class="mobile">
+                <input type="file" name="file" id="fileSelector"/>
+                <label for="fileSelector"><span>choose file...</span></label>
+                <p id="currentMobileFile">no file chosen</p>
+                <button id="uploadButton" onclick="uploadFile()">upload</button>
+            </div>
+            <div id="expandMobileFilter" class="mobile">
+                <input id="searchbox" type="text" placeholder="filter">
+                <div id="buttons">
+                    <button>enter</button>
+                    <button>clear filter</button>
+                </div>
+            </div>
+            <div id="expandMobileFavorites" class="mobile">
+                <button>clear filter</button>
+            </div>
+        </div>
+        <div id="mobileButtons" class="mobile">
+            <img src="Asset/uploadIcon-01.svg" alt="upload" onclick="expandMobile(0)">
+            <img src="Asset/filterIcon-01.svg" alt="filter" onclick="expandMobile(1)">
+            <img src="Asset/favoritesIcon.svg" alt="favorites" onclick="expandMobile(2)">
         </div>
         <div id="images"></div>
         <div id="tool">
