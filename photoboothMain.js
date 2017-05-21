@@ -1,6 +1,6 @@
 //remember to reset your server url
 var imgIndex = 0;
-var server = "http://138.68.25.50:10008"
+var server = "http://138.68.25.50:10155"
 
 function wait(ms) {
     var d = new Date();
@@ -95,7 +95,6 @@ function constructOpt(favo, addGroup, uploadImg) {
     var add = addGroup[1];
     var labels = addGroup[2];
 
-
     expand.onclick = function() {
         if (options.style.backgroundColor == "rgb(136, 85, 65)") {
             options.style.backgroundColor = "transparent";
@@ -111,7 +110,6 @@ function constructOpt(favo, addGroup, uploadImg) {
             options.style.top = "-110px";
         }
     }
-
     favorite.onclick = function() {
         if (favorite.innerHTML == "add to favorites") {
             sendQuery(uploadImg.name, "@", "add");
@@ -121,7 +119,6 @@ function constructOpt(favo, addGroup, uploadImg) {
             favorite.innerHTML = "add to favorites";
         }
     }
-
     changeTag.onclick = function() {
         var labDiv = labels.getElementsByTagName("div");
 
@@ -160,6 +157,15 @@ function constructAdd(uploadImg) {
     add.onclick = function() {
         var input = labelInput.value;
         var imgName = uploadImg.name;
+        var labelPs = labels.getElementsByTagName("p");
+
+        for (var i = 0; i < labelPs.length; i++) {
+            if (labelPs[i].innerHTML == input) {
+                alert("Can't add existing label for this photo!");
+                return;
+            }
+        }
+
         var labDiv = labels.getElementsByTagName("div");
         var label = document.createElement("div");
         var button = document.createElement("button");
@@ -171,6 +177,7 @@ function constructAdd(uploadImg) {
             pic.src = "Asset/removeTagButton.svg";
             button.appendChild(pic);
             button.onclick = function() {
+                var input = this.parentElement.getElementsByTagName("p")[0].innerHTML;
                 sendQuery(imgName, input, "delete")
                 this.parentElement.remove();
             }
@@ -221,16 +228,29 @@ function constructImg(favo) {
 }
 
 function uploadFile() {
+    var selectedFile = document.getElementById("fileSelector").files[0];
+    var images = document.getElementById("images");
+    var uploadImgs = images.getElementsByClassName("uploadImg");
+
+    if (!selectedFile) {
+        alert("No file chosen!");
+        return;
+    }
+    for (var i = 0; i < uploadImgs.length; i++) {
+        if (uploadImgs[i].name == selectedFile.name) {
+            alert("Can't add already existing photo!");
+            return;
+        }
+    }
+
     var formData = new FormData();
     var fileReader = new FileReader();
-    var images = document.getElementById("images");
     var div = constructImg(0);
     var image = div.getElementsByTagName("img")[0];
     var options = div.getElementsByClassName("options")[0];
     var labels = div.getElementsByClassName("addLabel")[0];
     var oReq = new XMLHttpRequest();
     var progress = div.getElementsByTagName("progress")[0];
-    var selectedFile = document.getElementById("fileSelector").files[0];
 
     function updateProgress(oEvent) {
         if (oEvent.lengthComputable) {
@@ -241,13 +261,13 @@ function uploadFile() {
             console.log("unable to calc");
         }
     }
-
     function progressFinished(oEvent) {
         progress.style.display = "none";
         options.style.display = "flex";
         labels.style.display = "flex";
         image.style.opacity = 1;
     }
+
     oReq.onload = function() {
         console.log(oReq.responseText);
     }
@@ -288,6 +308,8 @@ function addPhoto(imgURL, labels, favo) {
         button.appendChild(pic);
         button.style.display = "none";
         button.onclick = function() {
+            var input = this.parentElement.getElementsByTagName("p")[0].innerHTML;
+            sendQuery(image.name, input, "delete")
             this.parentElement.remove();
         }
         label.appendChild(button);
