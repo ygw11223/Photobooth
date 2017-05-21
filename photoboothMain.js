@@ -1,6 +1,6 @@
 //remember to reset your server url
 var imgIndex = 0;
-var server = "http://138.68.25.50:10155"
+var server = "http://138.68.25.50:10008"
 
 function wait(ms) {
     var d = new Date();
@@ -30,7 +30,7 @@ function loadAllImages() {
         for (var i = 0; i < data.length; i++) {
             var url = "public/" + data[i].FILE;
             var labels = data[i].LABELS;
-            var favorite = data[i].FAVORTITE;
+            var favorite = parseInt(data[i].FAVORITE, 10);
             addPhoto(url, labels, favorite);
         }
     }
