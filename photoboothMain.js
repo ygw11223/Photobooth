@@ -1,56 +1,75 @@
 //remember to reset your server url
 var imgIndex = 0;
-var server = "http://138.68.25.50:10155"
+var server = "http://138.68.25.50:10008"
 
-function wait(ms)
-{
+function wait(ms) {
     var d = new Date();
     var d2 = null;
-    do { 
-        d2 = new Date(); 
-    } while(d2-d < ms);
+    do {
+        d2 = new Date();
+    } while (d2 - d < ms);
 }
 
 function init() {
     document.getElementById("expandUpload").style.display = "none";
     document.getElementById("expandFavorites").style.display = "none";
     document.getElementById("expandFilter").style.display = "none";
-    document.getElementById("fileSelector").onchange = function(e) { 
+    document.getElementById("fileSelector").onchange = function(e) {
         document.getElementById("currentFile").innerHTML = this.files[0].name;
     };
+
+    loadAllImages();
+}
+
+function loadAllImages() {
+    var url = server + "/change?img=*&label=*&op=ask";
+    var oReq = new XMLHttpRequest();
+
+    function reqListener() {
+        var data = JSON.parse(this.responseText);
+        for (var i = 0; i < data.length; i++) {
+            var url = "public/" + data[i].FILE;
+            var labels = data[i].LABELS;
+            var favorite = data[i].FAVORTITE;
+            addPhoto(url, labels, favorite);
+        }
+    }
+
+    console.log(url);
+    oReq.addEventListener("load", reqListener);
+    oReq.open("GET", url);
+    oReq.send();
 }
 
 function expandUpload() {
     var expand = document.getElementById("expandUpload");
-    if(expand.style.display == "none")
+    if (expand.style.display == "none")
         expand.style.display = "flex";
-    else{
+    else {
         expand.style.display = "none";
     }
 }
 
 function expandFilter() {
     var expand = document.getElementById("expandFilter");
-    if(expand.style.display == "none")
+    if (expand.style.display == "none")
         expand.style.display = "flex";
-    else{
+    else {
         expand.style.display = "none";
     }
 }
 
 function expandFavorites() {
     var expand = document.getElementById("expandFavorites");
-    if(expand.style.display == "none")
+    if (expand.style.display == "none")
         expand.style.display = "flex";
-    else{
+    else {
         expand.style.display = "none";
     }
 }
 
-function sendQuery(imgName, labName, option)
-{
-    var url = server + "/change?img=" + imgName + "&label=" + labName 
-        + "&op=" + option;
+function sendQuery(imgName, labName, option) {
+    var url = server + "/change?img=" + imgName + "&label=" + labName + "&op=" + option;
     var oReq = new XMLHttpRequest();
 
     function reqListener() {
@@ -77,23 +96,23 @@ function constructOpt(favo, addGroup, uploadImg) {
     var labels = addGroup[2];
 
 
-    expand.onclick = function () {
-        if(options.style.backgroundColor == "rgb(136, 85, 65)") {
+    expand.onclick = function() {
+        if (options.style.backgroundColor == "rgb(136, 85, 65)") {
             options.style.backgroundColor = "transparent";
             options.style.borderStyle = "none";
-            favorite.style.display = changeTag.style.display ="none";
+            favorite.style.display = changeTag.style.display = "none";
             hr1.style.display = hr2.style.display = "none";
-            options.style.top = "-108px";   
+            options.style.top = "-108px";
         } else {
             options.style.backgroundColor = "#885541";
-            options.style.borderStyle = "solid";    
-            favorite.style.display = changeTag.style.display ="block";
+            options.style.borderStyle = "solid";
+            favorite.style.display = changeTag.style.display = "block";
             hr1.style.display = hr2.style.display = "block";
             options.style.top = "-110px";
         }
     }
 
-    favorite.onclick = function () {
+    favorite.onclick = function() {
         if (favorite.innerHTML == "add to favorites") {
             sendQuery(uploadImg.name, "@", "add");
             favorite.innerHTML = "unfavorite";
@@ -103,7 +122,7 @@ function constructOpt(favo, addGroup, uploadImg) {
         }
     }
 
-    changeTag.onclick = function () {
+    changeTag.onclick = function() {
         var labDiv = labels.getElementsByTagName("div");
 
         addLabel.getElementsByTagName("input")[0].style.display = "block";
@@ -138,7 +157,7 @@ function constructAdd(uploadImg) {
     var labels = document.createElement("div");
     var add = document.createElement("button");
 
-    add.onclick = function () {
+    add.onclick = function() {
         var input = labelInput.value;
         var imgName = uploadImg.name;
         var labDiv = labels.getElementsByTagName("div");
@@ -153,7 +172,7 @@ function constructAdd(uploadImg) {
             button.appendChild(pic);
             button.onclick = function() {
                 sendQuery(imgName, input, "delete")
-                this.parentElement.remove();        
+                this.parentElement.remove();
             }
             label.appendChild(button);
             label.appendChild(p);
@@ -213,16 +232,17 @@ function uploadFile() {
     var progress = div.getElementsByTagName("progress")[0];
     var selectedFile = document.getElementById("fileSelector").files[0];
 
-    function updateProgress (oEvent) {
+    function updateProgress(oEvent) {
         if (oEvent.lengthComputable) {
             var percentComplete = parseInt(oEvent.loaded / oEvent.total * 100).toString();
             progress.value = percentComplete;
             wait(500);
         } else {
-        console.log("unable to calc");
+            console.log("unable to calc");
         }
     }
-    function progressFinished (oEvent) {
+
+    function progressFinished(oEvent) {
         progress.style.display = "none";
         options.style.display = "flex";
         labels.style.display = "flex";
@@ -246,8 +266,7 @@ function uploadFile() {
     fileReader.readAsDataURL(selectedFile);
 }
 
-function addPhoto(imgURL, labels, favo)
-{
+function addPhoto(imgURL, labels, favo) {
     var images = document.getElementById("images");
     var imageDiv = constructImg(favo);
     var image = imageDiv.getElementsByTagName("img")[0];
@@ -257,7 +276,7 @@ function addPhoto(imgURL, labels, favo)
 
     image.src = imgURL;
     image.name = imgURL.split("/")[1];
-    if (words[0]=="") length = 0;
+    if (words[0] == "") length = 0;
     for (var i = 0; i < length; i++) {
         var label = document.createElement("div");
         var button = document.createElement("button");
@@ -269,7 +288,7 @@ function addPhoto(imgURL, labels, favo)
         button.appendChild(pic);
         button.style.display = "none";
         button.onclick = function() {
-            this.parentElement.remove();        
+            this.parentElement.remove();
         }
         label.appendChild(button);
         label.appendChild(p);
@@ -280,6 +299,6 @@ function addPhoto(imgURL, labels, favo)
     imageDiv.getElementsByClassName("options")[0].style.display = "flex";
     labelsDiv.style.display = labelsDiv.parentElement.style.display = "flex";
     images.appendChild(imageDiv);
-} 
+}
 
 init();
