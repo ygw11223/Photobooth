@@ -95,7 +95,6 @@ function constructOpt(favo, addGroup, uploadImg) {
     var add = addGroup[1];
     var labels = addGroup[2];
 
-
     expand.onclick = function() {
         if (options.style.backgroundColor == "rgb(136, 85, 65)") {
             options.style.backgroundColor = "transparent";
@@ -111,7 +110,6 @@ function constructOpt(favo, addGroup, uploadImg) {
             options.style.top = "-110px";
         }
     }
-
     favorite.onclick = function() {
         if (favorite.innerHTML == "add to favorites") {
             sendQuery(uploadImg.name, "@", "add");
@@ -121,7 +119,6 @@ function constructOpt(favo, addGroup, uploadImg) {
             favorite.innerHTML = "add to favorites";
         }
     }
-
     changeTag.onclick = function() {
         var labDiv = labels.getElementsByTagName("div");
 
@@ -254,7 +251,6 @@ function uploadFile() {
     var labels = div.getElementsByClassName("addLabel")[0];
     var oReq = new XMLHttpRequest();
     var progress = div.getElementsByTagName("progress")[0];
-    
 
     function updateProgress(oEvent) {
         if (oEvent.lengthComputable) {
@@ -265,13 +261,13 @@ function uploadFile() {
             console.log("unable to calc");
         }
     }
-
     function progressFinished(oEvent) {
         progress.style.display = "none";
         options.style.display = "flex";
         labels.style.display = "flex";
         image.style.opacity = 1;
     }
+
     oReq.onload = function() {
         console.log(oReq.responseText);
     }
