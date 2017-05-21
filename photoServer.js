@@ -116,6 +116,28 @@ function answer(query, response) {
 
             }
         }
+        else if (label === "@") {
+            if(op == "add") {
+                db.run('update imgs set FAVORITE = 1 where file = ?', [img], (err) => {
+                    if(err) {
+                        console.log("ERROR: " + err);
+                    }
+                    else {
+                        sendCode(201, response, 'update success');
+                    }
+                });
+            }
+            else if(op === "delete") {
+                db.run('update imgs set FAVORITE = 0 where file = ?', [img], (err) => {
+                    if(err) {
+                        console.log("ERROR: " + err);
+                    }
+                    else {
+                        sendCode(201, response, 'update success');
+                    }
+                });
+            }
+        }      
         else {
             if(op == "add") {
                 db.run( 'INSERT INTO LABELS (LABEL, FILE) VALUES (?,?)', [label, img], (err, row) => {
