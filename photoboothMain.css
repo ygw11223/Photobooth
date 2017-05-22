@@ -181,7 +181,7 @@ progress::-webkit-progress-value
     flex-direction: row;
 
     width: 100%;
-    max-width: 398px;
+    max-width: 298px;
     min-height: 50px;
     padding-top: 10px;
     padding-bottom: 10px;
