@@ -291,7 +291,7 @@ function constructLabel(labels, label) {
     button.appendChild(pic);
     button.onclick = function() {
         var input = this.parentElement.getElementsByTagName("p")[0].innerHTML;
-	var imgName = labels.parentElement.parentElement.getElementsByClassName("uploadImg")[0].name;
+        var imgName = labels.parentElement.parentElement.getElementsByClassName("uploadImg")[0].name;
         sendQuery(imgName, input, "delete")
         this.parentElement.remove();
     }
