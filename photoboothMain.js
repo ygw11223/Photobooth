@@ -162,7 +162,7 @@ function constructOpt(favo, addGroup, uploadImg) {
         var labDiv = labels.getElementsByTagName("div");
 
         addLabel.getElementsByTagName("input")[0].style.display = "block";
-        labels.style.backgroundColor = "#c6ab9c";
+        labels.style.backgroundColor = "#c3aaa0";
         add.style.display = "block";
         for (var i = 0; i < labDiv.length; i++) {
             labDiv[i].getElementsByTagName("button")[0].style.display = "block";
@@ -241,7 +241,7 @@ function constructAdd(uploadImg) {
     addLabel.appendChild(labelInput);
     addLabel.appendChild(labels);
     add.className = "add";
-    add.innerHTML = "add";
+    add.innerHTML = "Add";
 
     return [addLabel, add, labels];
 }
@@ -300,6 +300,7 @@ function uploadFile() {
             console.log("unable to calc");
         }
     }
+
     function progressFinished(oEvent) {
         progress.style.display = "none";
         options.style.display = "flex";
