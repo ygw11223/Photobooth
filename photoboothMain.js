@@ -66,9 +66,10 @@ function expandFilter() {
 
 function expandFavorites() {
     var expand = document.getElementById("expandFavorites");
-    if (expand.style.display == "none")
+    if (expand.style.display == "none") {
         expand.style.display = "flex";
-    else {
+        favorites();
+    } else {
         expand.style.display = "none";
     }
 }
@@ -90,6 +91,16 @@ function WidthChange(mq) {
     }
 }
 
+function favorites() {
+    var image = document.getElementsByClassName("image");
+    for (var i = 0; i < image.length; i++) {
+        var text = document.getElementsByClassName("options")[i].children[2].innerHTML;
+        if (text == "add to favorites") {
+            image[i].style.display = "none";
+        }
+    }
+}
+
 function expandMobile(index) {
     var mobile = document.getElementsByClassName("mobile");
     for (var i = 0; i < 3; i++) {
@@ -104,6 +115,9 @@ function expandMobile(index) {
             }
         } else
             mobile[i].style.display = "none";
+    }
+    if (index == 2) {
+        favorites();
     }
 }
 
@@ -363,6 +377,67 @@ function addPhoto(imgURL, labels, favo) {
     imageDiv.getElementsByClassName("options")[0].style.display = "flex";
     labelsDiv.style.display = labelsDiv.parentElement.style.display = "flex";
     images.appendChild(imageDiv);
+}
+
+function filter() {
+    var label = document.getElementById("searchbox").value;
+    var mobileLabel = document.getElementById("mobileSearchbox").value;
+    if (!label && !mobileLabel) {
+        alert("Please enter a label.");
+        return;
+    } else if (!label) {
+        label = mobileLabel;
+        document.getElementById("mobileSearchbox").value = "";
+    } else {
+        document.getElementById("searchbox").value = "";
+    }
+
+    var images = document.getElementById("images");
+
+    while (images.firstChild) {
+        images.removeChild(images.firstChild);
+    }
+
+    var url = server + "/change?img=*&label=" + label + "&op=ask";
+    var oReq = new XMLHttpRequest();
+
+    function reqListener() {
+        var data = JSON.parse(this.responseText);
+        for (var i = 0; i < data.length; i++) {
+            var url = "public/" + data[i].FILE;
+            var labels = data[i].LABELS;
+            var favorite = parseInt(data[i].FAVORITE, 10);
+            addPhoto(url, labels, favorite);
+        }
+    }
+
+    console.log(url);
+    oReq.addEventListener("load", reqListener);
+    oReq.open("GET", url);
+    oReq.send();
+}
+
+function clearFilter(index) {
+    var images = document.getElementById("images");
+
+    while (images.firstChild) {
+        images.removeChild(images.firstChild);
+    }
+    loadAllImages();
+    switch (index) {
+        case 1:
+            expandFilter();
+            break;
+        case 2:
+            expandFavorites();
+            break;
+        case 11:
+            expandMobile(1);
+            break;
+        case 12:
+            expandMobile(2);
+            break;
+    }
 }
 
 init();
