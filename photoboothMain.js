@@ -281,7 +281,7 @@ function constructImg(favo) {
 }
 
 function constructLabel(labels, label) {
-	var labelDiv = document.createElement("div");
+    var labelDiv = document.createElement("div");
     var button = document.createElement("button");
     var pic = document.createElement("img");
     var p = document.createElement("p");
@@ -339,7 +339,7 @@ function uploadFile() {
 
     oReq.onload = function() {
         console.log(oReq.responseText);
-    	var data = JSON.parse(oReq.responseText);
+        var data = JSON.parse(oReq.responseText);
         var labels = addLabel.getElementsByClassName("labels")[0];
         for (var i = 0; i < data.length; i++) {
             var label = data[i];
