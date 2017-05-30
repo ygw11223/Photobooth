@@ -14,20 +14,20 @@
     <main>
         <div id="mobileExpand">
             <div id="expandMobileUpload" class="mobile">
-                <input type="file" name="file" id="fileSelector"/>
+                <input type="file" name="file" id="fileSelector" accept="image/*"/>
                 <label for="fileSelector"><span>choose file...</span></label>
                 <p id="currentMobileFile">no file chosen</p>
                 <button id="uploadButton" onclick="uploadFile()">upload</button>
             </div>
             <div id="expandMobileFilter" class="mobile">
-                <input id="searchbox" type="text" placeholder="filter">
-                <div id="buttons">
-                    <button>enter</button>
-                    <button>clear filter</button>
+                <input id="mobileSearchbox" type="text" placeholder="filter">
+                <div class="buttons">
+                    <button onclick="filter()">enter</button>
+                    <button onclick="clearFilter(11)">clear filter</button>
                 </div>
             </div>
             <div id="expandMobileFavorites" class="mobile">
-                <button>clear filter</button>
+                <button onclick="clearFilter(12)">clear filter</button>
             </div>
         </div>
         <div id="mobileButtons" class="mobile">
@@ -42,7 +42,7 @@
                 <p>upload</p>
             </div>
             <div id="expandUpload">
-                <input type="file" name="file" id="fileSelector"/>
+                <input type="file" name="file" id="fileSelector" accept="image/*"/>
                 <label for="fileSelector"><span>choose file...</span></label>
                 <p id="currentFile">no file chosen</p>
                 <button id="uploadButton" onclick="uploadFile()">upload</button>
@@ -53,9 +53,9 @@
             </div>
             <div id="expandFilter">
                 <input id="searchbox" type="text" placeholder="filter">
-                <div id="buttons">
-                    <button>enter</button>
-                    <button>clear filter</button>
+                <div class="buttons">
+                    <button onclick="filter()">enter</button>
+                    <button onclick="clearFilter(1)">clear filter</button>
                 </div>
             </div>
             <div id="favorites" onclick="expandFavorites()">
@@ -63,7 +63,7 @@
                 <p>favorites</p>
             </div>
             <div id="expandFavorites">
-                <button>clear filter</button>
+                <button onclick="clearFilter(2)">clear filter</button>
             </div>
         </div>
     </main>
