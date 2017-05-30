@@ -1,6 +1,6 @@
 //remember to reset your server url
 var imgIndex = 0;
-var server = "http://138.68.25.50:10008"
+var server = "http://138.68.25.50:10155"
 
 function wait(ms) {
     var d = new Date();
@@ -211,6 +211,7 @@ function constructAdd(uploadImg) {
         var input = labelInput.value;
         var imgName = uploadImg.name;
         var labelPs = labels.getElementsByTagName("p");
+        var labDivs = labels.getElementsByTagName("div");
 
         for (var i = 0; i < labelPs.length; i++) {
             if (labelPs[i].innerHTML == input) {
@@ -218,33 +219,15 @@ function constructAdd(uploadImg) {
                 return;
             }
         }
-
-        var labDiv = labels.getElementsByTagName("div");
-        var label = document.createElement("div");
-        var button = document.createElement("button");
-        var pic = document.createElement("img");
-        var p = document.createElement("p");
-
         if (input != "") {
-            p.innerHTML = input;
-            pic.src = "Asset/removeTagButton.svg";
-            button.appendChild(pic);
-            button.onclick = function() {
-                var input = this.parentElement.getElementsByTagName("p")[0].innerHTML;
-                sendQuery(imgName, input, "delete")
-                this.parentElement.remove();
-            }
-            label.appendChild(button);
-            label.appendChild(p);
-            label.className = "labelDiv";
-            labels.appendChild(label);
+            constructLabel(labels, input);
             sendQuery(imgName, input, "add");
             labelInput.value = "";
         }
         labelInput.style.display = add.style.display = "none";
         labels.style.backgroundColor = "white";
-        for (var i = 0; i < labDiv.length; i++) {
-            labDiv[i].getElementsByTagName("button")[0].style.display = "none";
+        for (var i = 0; i < labDivs.length; i++) {
+            labDivs[i].getElementsByTagName("button")[0].style.display = "none";
         }
     }
 
@@ -280,6 +263,28 @@ function constructImg(favo) {
     return image;
 }
 
+function constructLabel(labels, label) {
+    var labelDiv = document.createElement("div");
+    var button = document.createElement("button");
+    var pic = document.createElement("img");
+    var p = document.createElement("p");
+
+    p.innerHTML = label;
+    pic.src = "Asset/removeTagButton.svg";
+    button.appendChild(pic);
+    button.onclick = function() {
+        var input = this.parentElement.getElementsByTagName("p")[0].innerHTML;
+        var imgName = labels.parentElement.parentElement.getElementsByClassName("uploadImg")[0].name;
+        sendQuery(imgName, input, "delete")
+        this.parentElement.remove();
+    }
+    button.style.display = "none";
+    labelDiv.appendChild(button);
+    labelDiv.appendChild(p);
+    labelDiv.className = "labelDiv";
+    labels.appendChild(labelDiv);
+}
+
 function uploadFile() {
     var selectedFile = document.getElementById("fileSelector").files[0];
     var images = document.getElementById("images");
@@ -301,7 +306,7 @@ function uploadFile() {
     var div = constructImg(0);
     var image = div.getElementsByTagName("img")[0];
     var options = div.getElementsByClassName("options")[0];
-    var labels = div.getElementsByClassName("addLabel")[0];
+    var addLabel = div.getElementsByClassName("addLabel")[0];
     var oReq = new XMLHttpRequest();
     var progress = div.getElementsByTagName("progress")[0];
 
@@ -315,15 +320,18 @@ function uploadFile() {
         }
     }
 
-    function progressFinished(oEvent) {
-        progress.style.display = "none";
-        options.style.display = "flex";
-        labels.style.display = "flex";
-        image.style.opacity = 1;
-    }
-
     oReq.onload = function() {
         console.log(oReq.responseText);
+        var data = JSON.parse(oReq.responseText);
+        var labels = addLabel.getElementsByClassName("labels")[0];
+        for (var i = 0; i < data.length; i++) {
+            var label = data[i];
+            constructLabel(labels, label);
+        }
+        progress.style.display = "none";
+        options.style.display = "flex";
+        addLabel.style.display = "flex";
+        image.style.opacity = 1;
     }
     fileReader.onload = function() {
         image.src = fileReader.result;
@@ -336,7 +344,6 @@ function uploadFile() {
     document.getElementById("currentFile").innerHTML = "no file chosen";
     document.getElementById("currentMobileFile").innerHTML = "no file chosen";
     oReq.upload.addEventListener("progress", updateProgress);
-    oReq.upload.addEventListener("load", progressFinished);
     oReq.open("POST", server, true);
     formData.append("userfile", selectedFile);
     fileReader.readAsDataURL(selectedFile);
@@ -354,24 +361,7 @@ function addPhoto(imgURL, labels, favo) {
     image.name = imgURL.split("/")[1];
     if (words[0] == "") length = 0;
     for (var i = 0; i < length; i++) {
-        var label = document.createElement("div");
-        var button = document.createElement("button");
-        var pic = document.createElement("img");
-        var p = document.createElement("p");
-
-        p.innerHTML = words[i];
-        pic.src = "Asset/removeTagButton.svg";
-        button.appendChild(pic);
-        button.style.display = "none";
-        button.onclick = function() {
-            var input = this.parentElement.getElementsByTagName("p")[0].innerHTML;
-            sendQuery(image.name, input, "delete")
-            this.parentElement.remove();
-        }
-        label.appendChild(button);
-        label.appendChild(p);
-        label.className = "labelDiv";
-        labelsDiv.appendChild(label);
+        constructLabel(labelsDiv, words[i]);
     }
     imageDiv.getElementsByTagName("progress")[0].style.display = "none";
     imageDiv.getElementsByClassName("options")[0].style.display = "flex";
