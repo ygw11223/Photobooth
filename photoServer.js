@@ -1,7 +1,7 @@
 var express = require('express');
 var formidable = require('formidable');  
 var portNumber = 10032; // don't forget change the port
-var localhost = 'http://138.68.25.50:10032';
+var localhost = 'http://138.68.25.50:10032/';
 var req = require('request');
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 var app = express();
@@ -77,7 +77,7 @@ app.post('/', function (request, response){
 
 
     function annotateImage() {  
-        filePath = "http://138.68.25.50:10032/public/" + fileName;
+        filePath = localhost + "public/" + fileName;
         requestObject = {"requests": [{"image": {
                 "source": {"imageUri": filePath}},
                 "features": [{ "type": "LABEL_DETECTION" }]}]};
@@ -144,7 +144,7 @@ function answer(query, response) {
         }
         else if(img === "*") {
             if(op === "ask") {
-                db.all('select distinct labels.file, imgs.labels \
+                db.all('select distinct labels.file, imgs.labels, imgs.favorite\
                         from labels join imgs on labels.label = ? \
                         and imgs.file = labels.file;', [label], (err, row) => {
                             if(err) {
