@@ -211,6 +211,7 @@ function constructAdd(uploadImg) {
         var input = labelInput.value;
         var imgName = uploadImg.name;
         var labelPs = labels.getElementsByTagName("p");
+        var labDivs = labels.getElementsByTagName("div");
 
         for (var i = 0; i < labelPs.length; i++) {
             if (labelPs[i].innerHTML == input) {
@@ -218,33 +219,15 @@ function constructAdd(uploadImg) {
                 return;
             }
         }
-
-        var labDiv = labels.getElementsByTagName("div");
-        var label = document.createElement("div");
-        var button = document.createElement("button");
-        var pic = document.createElement("img");
-        var p = document.createElement("p");
-
         if (input != "") {
-            p.innerHTML = input;
-            pic.src = "Asset/removeTagButton.svg";
-            button.appendChild(pic);
-            button.onclick = function() {
-                var input = this.parentElement.getElementsByTagName("p")[0].innerHTML;
-                sendQuery(imgName, input, "delete")
-                this.parentElement.remove();
-            }
-            label.appendChild(button);
-            label.appendChild(p);
-            label.className = "labelDiv";
-            labels.appendChild(label);
+            constructLabel(labels, input);
             sendQuery(imgName, input, "add");
             labelInput.value = "";
         }
         labelInput.style.display = add.style.display = "none";
         labels.style.backgroundColor = "white";
-        for (var i = 0; i < labDiv.length; i++) {
-            labDiv[i].getElementsByTagName("button")[0].style.display = "none";
+        for (var i = 0; i < labDivs.length; i++) {
+            labDivs[i].getElementsByTagName("button")[0].style.display = "none";
         }
     }
 
@@ -378,24 +361,7 @@ function addPhoto(imgURL, labels, favo) {
     image.name = imgURL.split("/")[1];
     if (words[0] == "") length = 0;
     for (var i = 0; i < length; i++) {
-        var label = document.createElement("div");
-        var button = document.createElement("button");
-        var pic = document.createElement("img");
-        var p = document.createElement("p");
-
-        p.innerHTML = words[i];
-        pic.src = "Asset/removeTagButton.svg";
-        button.appendChild(pic);
-        button.style.display = "none";
-        button.onclick = function() {
-            var input = this.parentElement.getElementsByTagName("p")[0].innerHTML;
-            sendQuery(image.name, input, "delete")
-            this.parentElement.remove();
-        }
-        label.appendChild(button);
-        label.appendChild(p);
-        label.className = "labelDiv";
-        labelsDiv.appendChild(label);
+        constructLabel(labelsDiv, words[i]);
     }
     imageDiv.getElementsByTagName("progress")[0].style.display = "none";
     imageDiv.getElementsByClassName("options")[0].style.display = "flex";
