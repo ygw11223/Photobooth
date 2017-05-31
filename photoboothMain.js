@@ -91,29 +91,13 @@ function WidthChange(mq) {
 }
 
 function favorites() {
-    var images = document.getElementById("images");
-
-    while (images.firstChild) {
-        images.removeChild(images.firstChild);
-    }
-
-    var url = server + "/change?img=*&label=@&op=ask";
-    var oReq = new XMLHttpRequest();
-
-    function reqListener() {
-        var data = JSON.parse(this.responseText);
-        for (var i = 0; i < data.length; i++) {
-            var url = "public/" + data[i].FILE;
-            var labels = data[i].LABELS;
-            var favorite = parseInt(data[i].FAVORITE, 10);
-            addPhoto(url, labels, favorite);
+    var image = document.getElementsByClassName("image");
+    for (var i = 0; i < image.length; i++) {
+        var text = document.getElementsByClassName("options")[i].children[2].innerHTML;
+        if (text == "add to favorites") {
+            image[i].style.display = "none";
         }
     }
-
-    console.log(url);
-    oReq.addEventListener("load", reqListener);
-    oReq.open("GET", url);
-    oReq.send();
 }
 
 function expandMobile(index) {
