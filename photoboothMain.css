@@ -67,6 +67,7 @@ button
 .uploadImg
 {
     max-width: 300px;
+    width: 100%;
 }
 
 progress
@@ -314,7 +315,7 @@ progress::-webkit-progress-value
     color: #885541;
 }
 
-input[type=text]
+.search
 {
     font-family: 'Goudy Old Style', sans-serif;
     font-size: 20px;

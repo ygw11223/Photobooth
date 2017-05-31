@@ -1,6 +1,5 @@
-//remember to reset your server url
 var imgIndex = 0;
-var server = "http://138.68.25.50:10155"
+var server = "http://138.68.25.50:10008"
 
 function wait(ms) {
     var d = new Date();
@@ -92,13 +91,29 @@ function WidthChange(mq) {
 }
 
 function favorites() {
-    var image = document.getElementsByClassName("image");
-    for (var i = 0; i < image.length; i++) {
-        var text = document.getElementsByClassName("options")[i].children[2].innerHTML;
-        if (text == "add to favorites") {
-            image[i].style.display = "none";
+    var images = document.getElementById("images");
+
+    while (images.firstChild) {
+        images.removeChild(images.firstChild);
+    }
+
+    var url = server + "/change?img=*&label=@&op=ask";
+    var oReq = new XMLHttpRequest();
+
+    function reqListener() {
+        var data = JSON.parse(this.responseText);
+        for (var i = 0; i < data.length; i++) {
+            var url = "public/" + data[i].FILE;
+            var labels = data[i].LABELS;
+            var favorite = parseInt(data[i].FAVORITE, 10);
+            addPhoto(url, labels, favorite);
         }
     }
+
+    console.log(url);
+    oReq.addEventListener("load", reqListener);
+    oReq.open("GET", url);
+    oReq.send();
 }
 
 function expandMobile(index) {
