@@ -110,7 +110,7 @@ function updateTags(img) { // update tags of img
             str += row.LABEL +',';
         });
         str = str.substring(0, str.length-1);
-        console.log(str);
+//        console.log(str);
         db.run("update imgs set labels = ? where file = ?;", [str, img]);
     });
 }
@@ -143,7 +143,20 @@ function answer(query, response) {
             }
         }
         else if(img === "*") {
-            if(op === "ask") {
+            if(label === "@" && op === "ask") {
+                db.all("SELECT LABELS, FILE, FAVORITE FROM IMGS WHERE FAVORITE = 1", (err, row) => {
+                    if(err) {
+                        console.log("select error");
+                    }
+                    else{
+                        row.forEach((r) => { 
+                            r.FAVORITE  = r.FAVORITE.toString(); 
+                        });
+                        sendJson(row, response);
+                    }
+                });
+            }
+            else if(op === "ask") {
                 db.all('select distinct labels.file, imgs.labels, imgs.favorite\
                         from labels join imgs on labels.label = ? \
                         and imgs.file = labels.file;', [label], (err, row) => {
@@ -158,11 +171,6 @@ function answer(query, response) {
                                 sendJson(row, response);
                             }
                         });
-            }
-        }
-        else if (label === "*" ) {
-            if(op === "ask") {
-
             }
         }
         else if (label === "@") {
@@ -189,7 +197,7 @@ function answer(query, response) {
         }
         else {
             if(op == "add") {
-                db.run( 'INSERT INTO LABELS (LABEL, FILE) VALUES (?,?)', [label, img], (err, row) => {
+                db.run( 'INSERT INTO LABELS (LABEL, FILE) VALUES (?,?)', [decodeURI(label), img], (err, row) => {
                     if(err) {
                         console.log("ERROR: " + err); 
                     }
@@ -201,7 +209,7 @@ function answer(query, response) {
                 });
             }
             else if(op === "delete") {
-                db.run( 'delete from labels where label = ? and file = ?;', [label, img], (err, row) => {
+                db.run( 'delete from labels where label = ? and file = ?;', [decodeURI(label), img], (err, row) => {
                     if(err) {
                         console.log("ERROR: " + err); 
                     }
