@@ -1,4 +1,3 @@
-var imgIndex = 0;
 var server = "http://138.68.25.50:10008"
 
 function wait(ms) {
@@ -173,12 +172,23 @@ function constructOpt(favo, addGroup, uploadImg) {
     }
     changeTag.onclick = function() {
         var labDiv = labels.getElementsByTagName("div");
-
-        addLabel.getElementsByTagName("input")[0].style.display = "block";
-        labels.style.backgroundColor = "#c3aaa0";
-        add.style.display = "block";
-        for (var i = 0; i < labDiv.length; i++) {
-            labDiv[i].getElementsByTagName("button")[0].style.display = "block";
+        if(labels.style.backgroundColor == "rgb(195, 170, 160)"){
+            labels.style.backgroundColor = "white";
+            addLabel.getElementsByTagName("input")[0].style.display = "none";
+            add.style.display = "none";
+            for (var i = 0; i < labDiv.length; i++) {
+                labDiv[i].getElementsByTagName("button")[0].style.display = "none";
+            }
+        }
+        else{
+            labels.style.backgroundColor = "#c3aaa0";
+            if(labDiv.length < 10){
+                addLabel.getElementsByTagName("input")[0].style.display = "block";
+                add.style.display = "block";
+            }
+            for (var i = 0; i < labDiv.length; i++) {
+                labDiv[i].getElementsByTagName("button")[0].style.display = "block";
+            }
         }
     }
 
